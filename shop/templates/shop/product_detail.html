@@ -1,0 +1,75 @@
+{% extends 'shop/base.html' %}
+{% block title %}{{ product.name }} — FRAGRANCE LUXURY{% endblock %}
+
+{% block content %}
+<section class="container product-detail reveal">
+
+    <a href="{% url 'shop:catalog' %}" class="back-link">← Назад в каталог</a>
+
+    <div class="product-detail__grid">
+        <div class="product-detail__image">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+                <div class="product-card__placeholder product-card__placeholder--large">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 3h6l1 3h2a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V7a1 1 0 011-1h2l1-3z" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1"/>
+                    </svg>
+                    <span>Фото скоро появится</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="product-detail__info">
+            {% if product.brand %}<p class="product-detail__brand">{{ product.brand }}</p>{% endif %}
+            <h1 class="product-detail__name">{{ product.name }}</h1>
+            <p class="product-detail__price">{{ product.price|floatformat:0 }} сум</p>
+
+            <div class="product-detail__facts">
+                {% if product.volume %}
+                    <div class="fact"><span>Объём</span><strong>{{ product.volume }}</strong></div>
+                {% endif %}
+                {% if product.category %}
+                    <div class="fact"><span>Категория</span><strong>{{ product.get_category_display }}</strong></div>
+                {% endif %}
+                {% if product.gender %}
+                    <div class="fact"><span>Пол</span><strong>{{ product.get_gender_display }}</strong></div>
+                {% endif %}
+                <div class="fact">
+                    <span>Наличие</span>
+                    <strong class="{% if product.in_stock %}in-stock{% else %}out-stock{% endif %}">
+                        {% if product.in_stock %}В наличии{% else %}Нет в наличии{% endif %}
+                    </strong>
+                </div>
+            </div>
+
+            {% if product.description %}
+                <div class="product-detail__section">
+                    <h3>Описание</h3>
+                    <p>{{ product.description|linebreaksbr }}</p>
+                </div>
+            {% endif %}
+
+            {% if product.has_notes %}
+                <div class="product-detail__section">
+                    <h3>Ноты аромата</h3>
+                    <div class="notes">
+                        {% if product.top_notes %}
+                            <div class="notes__row"><span>Верхние</span><p>{{ product.top_notes }}</p></div>
+                        {% endif %}
+                        {% if product.middle_notes %}
+                            <div class="notes__row"><span>Средние</span><p>{{ product.middle_notes }}</p></div>
+                        {% endif %}
+                        {% if product.base_notes %}
+                            <div class="notes__row"><span>Базовые</span><p>{{ product.base_notes }}</p></div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <p class="product-detail__note">Этот аромат доступен для покупки в нашем магазине.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

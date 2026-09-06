@@ -1,0 +1,61 @@
+{% extends 'shop/base.html' %}
+{% block title %}Каталог — FRAGRANCE LUXURY{% endblock %}
+
+{% block content %}
+<section class="catalog-header">
+    <div class="container">
+        <h1>Каталог ароматов</h1>
+        <p>{{ products|length }} товар(ов)</p>
+    </div>
+</section>
+
+<section class="container">
+    <form method="get" class="filters reveal">
+        <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Поиск по названию или бренду..."
+            class="filters__search"
+        >
+
+        <select name="gender" class="filters__select">
+            <option value="">Все</option>
+            {% for value, label in gender_choices %}
+                <option value="{{ value }}" {% if gender == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="category" class="filters__select">
+            <option value="">Все категории</option>
+            {% for value, label in category_choices %}
+                <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="sort" class="filters__select">
+            <option value="">Сначала новые</option>
+            <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Цена: по возрастанию</option>
+            <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Цена: по убыванию</option>
+            <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Новые товары</option>
+        </select>
+
+        <button type="submit" class="btn btn--outline">Применить</button>
+        {% if query or gender or category or sort %}
+            <a href="{% url 'shop:catalog' %}" class="filters__reset">Сбросить</a>
+        {% endif %}
+    </form>
+
+    {% if products %}
+        <div class="product-grid reveal">
+            {% for product in products %}
+                {% include 'shop/_product_card.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>По вашему запросу ничего не найдено.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

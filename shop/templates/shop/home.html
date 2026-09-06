@@ -1,0 +1,68 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}FRAGRANCE LUXURY — Аромат, который говорит за вас{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container hero__inner">
+        <img src="{% static 'shop/img/logo-full.jpg' %}" alt="Fragrance Luxury" class="hero__logo">
+        <p class="hero__eyebrow">Коллекция ароматов</p>
+        <h1 class="hero__title">Аромат, который<br>говорит за вас.</h1>
+        <p class="hero__subtitle">Откройте коллекцию ароматов и найдите тот, который подходит именно вам.</p>
+        <a href="{% url 'shop:catalog' %}" class="btn btn--primary">Смотреть коллекцию</a>
+    </div>
+</section>
+
+{% if popular %}
+<section class="section container reveal">
+    <div class="section__head">
+        <h2>Популярные ароматы</h2>
+        <a href="{% url 'shop:catalog' %}" class="section__link">Весь каталог →</a>
+    </div>
+    <div class="product-grid">
+        {% for product in popular %}
+            {% include 'shop/_product_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if new_arrivals %}
+<section class="section section--alt reveal">
+    <div class="container">
+        <div class="section__head">
+            <h2>Новинки</h2>
+            <a href="{% url 'shop:catalog' %}?sort=newest" class="section__link">Все новинки →</a>
+        </div>
+        <div class="product-grid">
+            {% for product in new_arrivals %}
+                {% include 'shop/_product_card.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="section container reveal">
+    <div class="section__head">
+        <h2>Категории</h2>
+    </div>
+    <div class="category-grid">
+        {% for value, label in categories %}
+        <a href="{% url 'shop:catalog' %}?category={{ value }}" class="category-card">
+            <span>{{ label }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+{% if not popular and not new_arrivals %}
+<section class="section container">
+    <div class="empty-state">
+        <p>Каталог пока пуст. Добавьте товары через <a href="/admin/">Django Admin</a>.</p>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
