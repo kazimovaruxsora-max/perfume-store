@@ -534,7 +534,7 @@ img { max-width: 100%; display: block; }
     }
     .burger { display: flex; flex-shrink: 0; }
     .main-nav {
-        position: absolute;
+                position: absolute;
         top: 100%; left: 0; right: 0;
         background: var(--color-bg);
         flex-direction: column;
