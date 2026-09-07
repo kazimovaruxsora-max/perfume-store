@@ -43,13 +43,10 @@ img { max-width: 100%; display: block; }
 
 /* ===== Header ===== */
 .site-header {
-   position: sticky;
-    top: 0;
+   position: relative;
     z-index: 100;
     background: rgba(250, 247, 242, 0.98);
     border-bottom: 1px solid var(--color-border);
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
 }
 .header-inner {
     display: flex;
