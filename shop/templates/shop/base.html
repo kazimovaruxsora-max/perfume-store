@@ -4,37 +4,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>{% block title %}FRAGRANCE LUXURY{% endblock %}</title>
+
 <link rel="icon" type="image/png" href="{% static 'shop/img/favicon.png' %}">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
 </head>
+
 <body>
 
 <header class="site-header">
+
     <div class="container header-inner">
+
         <a href="{% url 'shop:home' %}" class="logo">
-            <img src="{% static 'shop/img/logo-emblem.png' %}" alt="Fragrance Luxury" class="logo__emblem">
-            <span class="logo__text">FRAGRANCE <span>LUXURY</span></span>
+            <img src="{% static 'shop/img/logo-emblem.png' %}"
+                 alt="Fragrance Luxury"
+                 class="logo__emblem">
+
+            <span class="logo__text">
+                FRAGRANCE <span>LUXURY</span>
+            </span>
         </a>
-       
-        <button class="burger" id="burgerBtn" aria-label="Меню">
-            <span></span><span></span><span></span>
+
+        <button class="burger"
+                id="burgerBtn"
+                aria-label="Меню"
+                aria-expanded="false">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
         </button>
+
     </div>
+
+    <!-- МЕНЮ БУРГЕРА -->
+    <nav class="mobile-menu" id="mobileMenu">
+
+        <a href="{% url 'shop:home' %}">
+            Главная
+        </a>
+
+        <a href="{% url 'shop:catalog' %}">
+            Каталог
+        </a>
+
+    </nav>
+
 </header>
+
 
 <main>
     {% block content %}{% endblock %}
 </main>
 
+
 <footer class="site-footer">
     <div class="container">
-        <p>&copy; {% now "Y" %} FRAGRANCE LUXURY. Витрина ароматов.</p>
+        <p>
+            &copy; {% now "Y" %} FRAGRANCE LUXURY.
+            Витрина ароматов.
+        </p>
     </div>
 </footer>
 
+
 <script src="{% static 'shop/js/main.js' %}"></script>
+
 </body>
 </html>
